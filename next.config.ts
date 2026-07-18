@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // pin turbopack root to this app dir (silences multi-lockfile warning)
+  turbopack: { root: __dirname },
 };
 
 export default nextConfig;

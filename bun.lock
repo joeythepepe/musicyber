@@ -6,6 +6,7 @@
       "name": "app",
       "dependencies": {
         "next": "16.2.10",
+        "pixelarticons": "^2.2.0",
         "react": "19.2.4",
         "react-dom": "19.2.4",
       },
@@ -709,6 +710,8 @@
     "picocolors": ["picocolors@1.1.1", "", {}, "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="],
 
     "picomatch": ["picomatch@4.0.5", "", {}, "sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A=="],
+
+    "pixelarticons": ["pixelarticons@2.2.0", "", { "peerDependencies": { "react": ">=16" }, "bin": { "pixelarticons": "bin/upgrade.js" } }, "sha512-2Cb9qnLGFZ+H6ov1vE3uybLXG0mwjMxs8rgKn9Ik9E92v05Sf+5z7KDf+VH0cbUkHFWp4j7+5lRKJOInEWsZ2w=="],
 
     "possible-typed-array-names": ["possible-typed-array-names@1.1.0", "", {}, "sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg=="],
 
