@@ -228,29 +228,59 @@ export default function MainScreen() {
   fullModeRef.current = fullMode;
   panelPinnedRef.current = panelPinned;
 
-  // ── restore persisted state (unknown / legacy moods → first mood) ──
+  // ── restore persisted state ──
+  // Track is restored from the full library (not just the mood filter), so empty
+  // channels (RAIN / OUTER SPACE) or deleted synth ids never leave the player blank.
   useEffect(() => {
     const s = getState();
-    const validMood: Mood = (MOODS as readonly string[]).includes(s.mood)
+    let validMood: Mood = (MOODS as readonly string[]).includes(s.mood)
       ? (s.mood as Mood)
       : MOODS[0];
+
+    const fromSave = s.trackId
+      ? TRACKS.find((t) => t.id === s.trackId)
+      : undefined;
+    const fromMood = filterTracks(validMood)[0];
+    // Prefer any real library track if both mood and save are empty/stale
+    const fallback =
+      fromSave ?? fromMood ?? TRACKS[0] ?? null;
+
+    // If the saved mood has zero tracks and we had no valid saved track,
+    // park on the first non-empty mood so the UI isn't a dead channel on load.
+    if (!fromSave && !fromMood) {
+      const withTracks = MOODS.find((m) => filterTracks(m).length > 0);
+      if (withTracks) validMood = withTracks;
+    }
+
     setMood(validMood);
     setTheme(moodTheme(validMood));
-    const q = filterTracks(validMood);
-    const found = q.find((t) => t.id === s.trackId);
-    setTrackId(found?.id ?? q[0]?.id ?? null);
+    setTrackId(fallback?.id ?? null);
     setReady(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Playlist is mood-filtered; the playing track is global (survives mood changes).
   const queue = useMemo(() => filterTracks(mood), [mood]);
-  const track: Track | undefined = useMemo(
-    () => TRACKS.find((t) => t.id === trackId),
-    [trackId],
-  );
+  const track: Track | undefined = useMemo(() => {
+    if (trackId) {
+      const found = TRACKS.find((t) => t.id === trackId);
+      if (found) return found;
+    }
+    // Hard fallback so the TV + transport never disappear mid-session
+    return TRACKS[0];
+  }, [trackId]);
+
+  // Heal stale / null trackId (deleted synths, empty mood on reload)
+  useEffect(() => {
+    if (!ready || !track) return;
+    if (track.id !== trackId) {
+      setTrackId(track.id);
+      saveState({ trackId: track.id });
+    }
+  }, [ready, track, trackId]);
+
   /** index in the current mood playlist; -1 if now-playing is from another mood */
-  const trackIndex = queue.findIndex((t) => t.id === trackId);
+  const trackIndex = queue.findIndex((t) => t.id === track?.id);
   // playback behavior is derived from the ACTIVE TRACK
   const isNoise = track?.category === "noise";
 
