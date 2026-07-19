@@ -16,6 +16,7 @@ import {
   formatTime,
   moodTheme,
   moodVisual,
+  type Mood,
   type Track,
 } from "@/lib/tracks";
 import { CALLSIGN, getState, saveState } from "@/lib/session";
@@ -203,7 +204,7 @@ export default function MainScreen() {
   } = useTv();
 
   const [ready, setReady] = useState(false);
-  const [mood, setMood] = useState(MOODS[0]);
+  const [mood, setMood] = useState<Mood>(MOODS[0]);
   const [trackId, setTrackId] = useState<string | null>(null);
 
   const [playing, setPlaying] = useState(false);
@@ -230,8 +231,8 @@ export default function MainScreen() {
   // ── restore persisted state (unknown / legacy moods → first mood) ──
   useEffect(() => {
     const s = getState();
-    const validMood = (MOODS as readonly string[]).includes(s.mood)
-      ? s.mood
+    const validMood: Mood = (MOODS as readonly string[]).includes(s.mood)
+      ? (s.mood as Mood)
       : MOODS[0];
     setMood(validMood);
     setTheme(moodTheme(validMood));
@@ -497,7 +498,7 @@ export default function MainScreen() {
 
   // ── mood filter: retheme + filter playlist only — do NOT stop/change track ──
   const pickMood = useCallback(
-    (m: string) => {
+    (m: Mood) => {
       if (m === mood) return;
       staticBurst();
       setMood(m);
