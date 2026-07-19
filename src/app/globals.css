@@ -727,6 +727,25 @@ body {
   border-width: 0 2px 2px 0;
 }
 
+/* About panel links — no uppercase (emails must stay lowercase) */
+.about-link {
+  text-transform: none;
+  cursor: pointer;
+  transition:
+    background-color 140ms,
+    border-color 140ms,
+    color 140ms;
+}
+.about-link:hover {
+  border-color: var(--color-glow);
+  color: var(--color-glow);
+  background: var(--color-panel);
+}
+.about-link:focus-visible {
+  outline: 1px solid var(--color-glow);
+  outline-offset: 2px;
+}
+
 /* on-screen buttons (inside the CRT picture) */
 .btn-hud {
   border: 1px solid var(--color-line);
