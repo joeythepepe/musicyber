@@ -131,50 +131,6 @@ function makeNoiseBuffer(
   return buf;
 }
 
-// ─── one-shot channel-change static click ────────────────────
-let clickCtx: AudioContext | null = null;
-
-/** ~150ms white-noise burst + tiny pop. Fire-and-forget. */
-export function playStaticClick(volume = 0.5) {
-  try {
-    const AC =
-      window.AudioContext ??
-      (window as unknown as { webkitAudioContext: typeof AudioContext })
-        .webkitAudioContext;
-    clickCtx ??= new AC();
-    const ctx = clickCtx;
-    if (ctx.state === "suspended") void ctx.resume();
-
-    const dur = 0.15;
-    const len = Math.floor(ctx.sampleRate * dur);
-    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let i = 0; i < len; i++) {
-      d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 1.6);
-    }
-    const src = ctx.createBufferSource();
-    src.buffer = buf;
-    const g = ctx.createGain();
-    g.gain.value = Math.max(0.05, volume) * 0.5;
-    src.connect(g).connect(ctx.destination);
-    src.start();
-
-    // tiny "pop" at the tail
-    const o = ctx.createOscillator();
-    o.type = "square";
-    o.frequency.setValueAtTime(880, ctx.currentTime);
-    o.frequency.exponentialRampToValueAtTime(90, ctx.currentTime + 0.05);
-    const og = ctx.createGain();
-    og.gain.setValueAtTime(volume * 0.18, ctx.currentTime);
-    og.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.06);
-    o.connect(og).connect(ctx.destination);
-    o.start();
-    o.stop(ctx.currentTime + 0.07);
-  } catch {
-    /* audio blocked or unavailable — stay silent */
-  }
-}
-
 interface Graph {
   src: AudioBufferSourceNode;
   filter: BiquadFilterNode;

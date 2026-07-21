@@ -18,13 +18,12 @@ import {
   type ReactNode,
 } from "react";
 import { getState, saveState } from "./session";
-import { playStaticClick } from "./noiseEngine";
 
 interface TvContextValue {
   volume: number;
   setVolume: (v: number) => void;
   volumeStep: (d: number) => void;
-  /** full-screen TV static burst + audio click */
+  /** full-screen TV static burst (visual only) */
   staticBurst: () => void;
   powerOnThen: (cb?: () => void) => void;
   powerOffThen: (cb?: () => void) => void;
@@ -44,8 +43,6 @@ export function TvProvider({ children }: { children: ReactNode }) {
   const [staticKey, setStaticKey] = useState(0);
   const [power, setPower] = useState<"idle" | "on" | "off">("idle");
   const powerTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const volumeRef = useRef(volume);
-  volumeRef.current = volume;
 
   // restore persisted volume
   useEffect(() => {
@@ -65,8 +62,7 @@ export function TvProvider({ children }: { children: ReactNode }) {
 
   const staticBurst = useCallback(() => {
     setStaticKey((k) => k + 1);
-    playStaticClick(volume);
-  }, [volume]);
+  }, []);
 
   const powerOnThen = useCallback((cb?: () => void) => {
     if (powerTimer.current) clearTimeout(powerTimer.current);
@@ -75,7 +71,6 @@ export function TvProvider({ children }: { children: ReactNode }) {
     // static shimmer as the picture settles
     setTimeout(() => {
       setStaticKey((k) => k + 1);
-      playStaticClick(volumeRef.current);
     }, 520);
     powerTimer.current = setTimeout(() => setPower("idle"), 950);
   }, []);
@@ -83,7 +78,6 @@ export function TvProvider({ children }: { children: ReactNode }) {
   const powerOffThen = useCallback((cb?: () => void) => {
     if (powerTimer.current) clearTimeout(powerTimer.current);
     setPower("off");
-    playStaticClick(volumeRef.current);
     powerTimer.current = setTimeout(() => {
       setPower("idle");
       cb?.();
