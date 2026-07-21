@@ -1,7 +1,7 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────
-// CHILL//OS — CRT context
+// Musicyber — CRT context
 // Shared with the whole site: volume (persisted), active theme
 // (per-mood palette), channel-change static bursts and the
 // power on/off boot animations. The physical deck is gone —

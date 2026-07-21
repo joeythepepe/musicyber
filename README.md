@@ -1,9 +1,11 @@
-# CHILL//OS
+# Musicyber
 
 A cyberpunk focus / ambient music terminal. **The whole website is an old CRT
 screen** — strict 4:3 picture on deep black, convex bulge glass, scanlines,
 channel-change static, per-mood color themes. Single screen, zero clicks to
 music. Silkscreen + IBM Plex Mono.
+
+Designed and scored by **Joey G. CHOU**.
 
 ## Stack
 
@@ -27,11 +29,11 @@ margins on all sides, ratio never breaks).
 
 Layout inside the screen:
 
-1. **Status bar** — full-width TV chrome at the very top (GUEST callsign,
-   pixel clock, signal bars)
+1. **Status bar** — full-width TV chrome at the very top (MUSICYBER brand,
+   GUEST callsign, pixel clock, battery)
 2. **Two columns below (≥640px):**
-   - **LEFT (~44%)** — TV area: the strict **square (1:1)** mood cover
-     display, vertically centered, never scrolls; time/EQ overlays + ⛶ FULL
+   - **LEFT (~54%)** — TV area: the strict **square (1:1)** mood cover
+     display, vertically centered, never scrolls; time/EQ overlays + WIN/SCR
    - **RIGHT** — control area: MOOD SELECT chips, PLAYLIST, PLAY CONTROLS
      (track info, segmented seek, transport, volume + sleep). Scrolls
      internally (`overflow-y: auto`, themed thin scrollbar) when content
@@ -80,11 +82,11 @@ CALM→waveform, CYBERPUNK→speed lines.
 
 ## Theater mode
 
-⛶ FULL opens a fullscreen overlay (also tries native `requestFullscreen`,
+⛶ SCR opens a fullscreen overlay (also tries native `requestFullscreen`,
 best-effort): the mood cover/animation goes full-bleed and a wide control
 panel docks lower-center — track info, segmented seek, transport, volume,
-sleep chips, and mood chips so you can re-theme without leaving. Esc or
-✕ EXIT closes. Playback/simulation/auto-advance keep running.
+and pin/exit. Esc or ✕ EXIT closes. Playback/simulation/auto-advance keep
+running.
 
 ## Add your music
 

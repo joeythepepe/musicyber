@@ -107,7 +107,7 @@ export default function StatusBar({
   return (
     <header className="flex items-center justify-between gap-3 border-b border-line px-4 py-2">
       <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-        <span className="hud-label shrink-0 text-ice">▪ CHILL//OS</span>
+        <span className="hud-label shrink-0 text-ice">▪ MUSICYBER</span>
         {callsign && (
           <span className="hud-label truncate">
             OP:<span className="text-fg">{callsign}</span>

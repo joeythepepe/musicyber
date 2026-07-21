@@ -8,8 +8,24 @@ const AUTHOR = "Joey G. CHOU";
 const HOMEPAGE = "https://www.joeyzhou.me/";
 const EMAIL = "zhouyicuhk@link.cuhk.edu.hk";
 
+/** Dual-role credits shown in the about popover */
+const CREDITS = [
+  {
+    key: "design",
+    label: "DESIGN",
+    detail: "Site · UI · CRT terminal",
+    mark: "◆",
+  },
+  {
+    key: "music",
+    label: "MUSIC",
+    detail: "Focus tapes · score",
+    mark: "♫",
+  },
+] as const;
+
 /**
- * Top-left pixel “!” badge → floating HUD about popover.
+ * Top-right pixel “!” badge → floating HUD credits / about popover.
  * Portaled + position:fixed so it never expands/pushes the CRT layout.
  * data-theme follows active mood (portal escapes .crt-stage otherwise).
  */
@@ -57,7 +73,7 @@ export default function AboutMenu() {
     if (!btn) return;
     const r = btn.getBoundingClientRect();
     const gap = 8;
-    const width = Math.min(18 * 16, window.innerWidth - 16); // ~18rem, clamp to viewport
+    const width = Math.min(19 * 16, window.innerWidth - 16); // ~19rem, clamp to viewport
     // Anchor under the badge, prefer right-align (badge is top-right)
     let left = r.right - width;
     if (left < 8) left = 8;
@@ -108,7 +124,7 @@ export default function AboutMenu() {
         ref={panelRef}
         id={panelId}
         role="dialog"
-        aria-label="About CHILL//OS"
+        aria-label="Musicyber credits — design and music by Joey G. CHOU"
         data-theme={theme}
         className="about-pop border border-linehi bg-void/95 p-3 shadow-[0_0_0_1px_rgba(0,0,0,0.5),0_12px_32px_rgba(0,0,0,0.65)] backdrop-blur-sm"
         style={{
@@ -116,7 +132,7 @@ export default function AboutMenu() {
           top: pos.top,
           left: pos.left,
           zIndex: 300,
-          width: "min(18rem, calc(100vw - 1rem))",
+          width: "min(19rem, calc(100vw - 1rem))",
           // Force themed tokens on the floating panel (not under .crt-stage)
           color: "var(--color-fg)",
         }}
@@ -126,14 +142,32 @@ export default function AboutMenu() {
         <span className="about-tick about-tick-bl" aria-hidden />
         <span className="about-tick about-tick-br" aria-hidden />
 
-        <p className="hud-label mb-2 text-[8px] text-glow">▮ OPERATOR FILE</p>
+        {/* ── identity ── */}
+        <p className="hud-label mb-2 text-[8px] text-glow">▮ CREDITS // MUSICYBER</p>
         <p className="font-pixel text-sm font-bold tracking-wider text-ice">{AUTHOR}</p>
         <p className="mt-0.5 font-plex text-[10px] tracking-widest text-dim uppercase">
-          CHILL//OS · author
+          Solo build · design + music
         </p>
+
+        {/* ── dual credits ── */}
+        <ul className="about-credit-list mt-3 flex flex-col gap-1.5" aria-label="Authorship">
+          {CREDITS.map((c) => (
+            <li key={c.key} className="about-credit">
+              <span className="about-credit-mark" aria-hidden>
+                {c.mark}
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="about-credit-label">{c.label}</span>
+                <span className="about-credit-detail">{c.detail}</span>
+              </span>
+              <span className="about-credit-by">BY ME</span>
+            </li>
+          ))}
+        </ul>
 
         <div className="my-3 h-px bg-line" aria-hidden />
 
+        {/* ── contact ── */}
         <ul className="flex flex-col gap-2">
           <li>
             <p className="hud-label mb-1 text-[8px]">▪ HOME</p>
@@ -185,10 +219,10 @@ export default function AboutMenu() {
         type="button"
         onClick={() => setOpen((v) => !v)}
         className={`about-badge font-pixel shrink-0 ${open ? "about-badge-on" : ""}`}
-        aria-label="About the author"
+        aria-label="Musicyber credits — design and music by the author"
         aria-expanded={open}
         aria-controls={panelId}
-        title="About"
+        title="Musicyber · Credits"
       >
         !
       </button>

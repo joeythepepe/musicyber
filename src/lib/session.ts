@@ -1,7 +1,9 @@
 "use client";
 
 // localStorage persistence — single-screen player state (mood-only)
-const STATE_KEY = "chillos:state";
+const STATE_KEY = "musicyber:state";
+/** Pre-rename key — migrated once on first read */
+const LEGACY_STATE_KEY = "chillos:state";
 
 export const CALLSIGN = "GUEST"; // no login — everyone is a guest operator
 
@@ -17,10 +19,23 @@ export const DEFAULT_STATE: PersistedState = {
   volume: 0.7,
 };
 
+function readRaw(): string | null {
+  const current = window.localStorage.getItem(STATE_KEY);
+  if (current) return current;
+  // one-shot migrate from CHILL//OS storage key
+  const legacy = window.localStorage.getItem(LEGACY_STATE_KEY);
+  if (legacy) {
+    window.localStorage.setItem(STATE_KEY, legacy);
+    window.localStorage.removeItem(LEGACY_STATE_KEY);
+    return legacy;
+  }
+  return null;
+}
+
 export function getState(): PersistedState {
   if (typeof window === "undefined") return DEFAULT_STATE;
   try {
-    const raw = window.localStorage.getItem(STATE_KEY);
+    const raw = readRaw();
     if (!raw) return DEFAULT_STATE;
     const parsed = JSON.parse(raw) as Partial<PersistedState>;
     // legacy `mode` key from older versions is simply ignored

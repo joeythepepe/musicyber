@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 /**
  * Framed HUD panel: 1px border, L-shaped corner ticks,
- * square dots at edge midpoints — the core CHILL//OS motif.
+ * square dots at edge midpoints — the core Musicyber motif.
  */
 export default function HudPanel({
   children,

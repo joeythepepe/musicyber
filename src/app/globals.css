@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* ─── CHILL//OS design tokens (default "ice" theme) ───────── */
+/* ─── Musicyber design tokens (default "ice" theme) ───────── */
 @theme {
   --color-void: #05070c;
   --color-abyss: #070b12;
@@ -725,6 +725,54 @@ body {
   bottom: -1px;
   right: -1px;
   border-width: 0 2px 2px 0;
+}
+
+/* Dual-role credit rows (DESIGN / MUSIC) */
+.about-credit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--color-linehi);
+  background: var(--color-panel2);
+  padding: 0.4rem 0.5rem;
+}
+.about-credit-mark {
+  flex-shrink: 0;
+  width: 1.1rem;
+  text-align: center;
+  font-family: var(--font-plex), monospace;
+  font-size: 11px;
+  color: var(--color-glow);
+  line-height: 1;
+}
+.about-credit-label {
+  display: block;
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--color-ice);
+  line-height: 1.2;
+}
+.about-credit-detail {
+  display: block;
+  margin-top: 1px;
+  font-family: var(--font-plex), monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--color-dim);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.about-credit-by {
+  flex-shrink: 0;
+  border: 1px solid var(--color-glow);
+  background: color-mix(in srgb, var(--color-glow) 18%, transparent);
+  padding: 0.15rem 0.35rem;
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--color-glow);
+  line-height: 1;
 }
 
 /* About panel links — no uppercase (emails must stay lowercase) */

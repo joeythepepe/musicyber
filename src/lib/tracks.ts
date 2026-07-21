@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-// CHILL//OS — track library (mood-only)
+// Musicyber — track library (mood-only)
 //
 // Moods are the ONLY filter — every track carries a `mood` tag,
 // and the mood chips (one of MOODS) filter the library into a
@@ -131,7 +131,7 @@ const scene = (
   rows.map(([id, title], i) => ({
     id,
     title,
-    artist: "CHILL//OS ENGINE",
+    artist: "MUSICYBER ENGINE",
     mood,
     category: "noise",
     src: `/audio/scene/${variant}-0${i + 1}.mp3`, // optional recorded override
@@ -146,14 +146,15 @@ const scene = (
 export const TRACKS: Track[] = [
   // ── CALM ──
   ...music("CALM", "wave", [
-    ["void-logic", "VOID LOGIC", "CALM TAPE", "void-logic.mp3", 156],
+    // artist = you — shown in playlist + now-playing
+    ["void-logic", "VOID LOGIC", "Joey G. CHOU", "void-logic.mp3", 156],
   ]),
 
   // ── OUTER SPACE — add focus music under public/audio/focus/ when ready ──
 
   // ── CYBERPUNK (drive) ──
   ...music("CYBERPUNK", "drive", [
-    ["grid-runner", "GRID RUNNER", "DRIVE TAPE", "grid-runner.mp3", 167],
+    ["grid-runner", "GRID RUNNER", "Joey G. CHOU", "grid-runner.mp3", 167],
   ]),
 
   // ── RAIN — add focus music under public/audio/focus/ when ready ──

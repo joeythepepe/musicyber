@@ -1,7 +1,7 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────
-// CHILL//OS — Web Audio noise engine (no audio files needed)
+// Musicyber — Web Audio noise engine (no audio files needed)
 //
 // Synthesizes environment ambience from filtered noise:
 //   rain  → white noise through a bandpass "patter" filter + gain flutter

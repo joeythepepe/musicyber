@@ -4,11 +4,12 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
-# CHILL//OS — agent guide
+# Musicyber — agent guide
 
-A retro CRT-styled mood music player. Single-screen Next.js app: pick a mood,
-it retunes the whole site's color theme and filters a mixed playlist of
-synth-engine noise scenes and tape-deck music tracks.
+A retro CRT-styled mood music player (project name: **Musicyber**).
+Single-screen Next.js app: pick a mood, it retunes the whole site's color
+theme and filters a mixed playlist of synth-engine noise scenes and
+tape-deck music tracks.
 
 ## Commands
 
@@ -55,5 +56,5 @@ directory (`app/`).
 ## Deploy
 
 - GitHub repo: `main` branch, `git push origin main`.
-- Vercel project `music-chill`: `vercel --prod --yes` deploys to production.
+- Vercel project: `vercel --prod --yes` deploys to production.
 - Commit and push before deploying so the repo and Vercel stay in sync.

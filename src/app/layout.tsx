@@ -17,9 +17,12 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CHILL//OS — CRT focus terminal",
+  title: "Musicyber — CRT music terminal",
   description:
-    "A cyberpunk focus / ambient music terminal. The whole site is the CRT screen.",
+    "Musicyber is a cyberpunk focus / ambient music terminal designed and scored by Joey G. CHOU. The whole site is the CRT screen.",
+  applicationName: "Musicyber",
+  authors: [{ name: "Joey G. CHOU", url: "https://www.joeyzhou.me/" }],
+  creator: "Joey G. CHOU",
 };
 
 export const viewport: Viewport = {
